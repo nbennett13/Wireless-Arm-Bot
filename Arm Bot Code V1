@@ -11,7 +11,7 @@
 
 // These could be constants but leaving
 // as variables allows them to be modified in the debugger "live"
-static float  pid_Kp = 0.5;
+static float  pid_Kp = 0.3;
 static float  pidRequestedValue;
 
 /*-----------------------------------------------------------------------------*/
