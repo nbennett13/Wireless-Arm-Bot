@@ -27,7 +27,7 @@ task pidController()
     while( true )
         {
         // Read the sensor value and scale
-        pidSensorCurrentValue = SensorValue[ armPot ];
+        pidSensorCurrentValue = SensorValue[ baseencoder ];
 
         // calculate error
         pidError =  pidRequestedValue - pidSensorCurrentValue;
@@ -36,18 +36,20 @@ task pidController()
         pidDrive = (pid_Kp * pidError);
 
         // limit drive
-        if( pidDrive > 127 )
-            pidDrive = 127;
-        if( pidDrive < (-127) )
-            pidDrive = (-127);
+        if( pidDrive > 33 )
+            pidDrive = 33;
+        if( pidDrive < (-33) )
+            pidDrive = (-33);
 
         // send to motor
-        motor[ motorA ] = pidDrive;
+        motor[ base ] = pidDrive;
 
         // Don't hog cpu
         wait1Msec( 25 );
         }
 }
+
+/////////////////////////////////// MAIN TASK//////////////
 
 task main()
 {
@@ -70,27 +72,23 @@ motor(claw)=0;
 
 //motor(arm)=vexRT[Btn3];
 
-//if(SensorValue(armencoder)<= 2000 && SensorValue(armencoder)>= 2000)
-//{
-	motor(arm) = vexRT[Ch4];
-	motor(arm2) = vexRT[Ch4];
+ // set initial position as the value of the pot
+    pidRequestedValue = SensorValue[ baseencoder ];
 
-	motor(base) =vexRT[Ch1]/4;
-	
-	while(vexRT[Btn7U] == 1)
-{
-	while(SensorValue(baseencoder) >= 35)
-	{
-		motor(base)= 67;
-	}
-	
-	while(SensorValue(baseencoder) <= 35)
-	{
-		motor(base)= -67;
-	}
-}
-		
-	
-	
+    // start the PID task
+    StartTask( pidController );
+
+    // use joystick to modify the requested position
+    while( true )
+        {
+        // presets - assume joystick is centered
+        if( vexRT[ Btn7U ] == 1 )
+            pidRequestedValue = 35;
+        else
+        if( vexRT[ Btn7R ] == 1 )
+            pidRequestedValue = 130;
+	else
+	if( vexRT[Btn7L] == 1)
+		pidRequestedValue = -50
 }
 }
