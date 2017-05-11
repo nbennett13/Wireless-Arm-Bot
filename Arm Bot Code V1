@@ -49,34 +49,30 @@ task pidController()
         }
 }
 
-/////////////////////////////////// MAIN TASK//////////////
+/////////////////////////////////// MAIN TASK//////////////////////
 
 task main()
 {
-wait10Msec(1);
+	wait10Msec(1);
 while(1==1)
 {
-if(vexRT[Btn6U]==1)
-{
-	Motor(claw)=63;
-}
-else if(vexRT[Btn6D]==1)
-{
+	if(vexRT[Btn6U]==1)
+	{
+		Motor(claw)=63;
+	}
+	else if(vexRT[Btn6D]==1)
+	{
 		motor(claw)=-63;
-}
-else
-{
-motor(claw)=0;
-}
-
-
-//motor(arm)=vexRT[Btn3];
+	}
+	else
+	{
+		motor(claw)=3; //check to make sure motor does burn up from stall
+	}
 
  // set initial position as the value of the pot
-    pidRequestedValue = SensorValue[ baseencoder ];
-
-    // start the PID task
-    StartTask( pidController );
+ 	pidRequestedValue = SensorValue[ baseencoder ];
+// start the PID task
+    	StartTask( pidController );
 
     // use joystick to modify the requested position
     while( true )
