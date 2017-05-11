@@ -1,3 +1,4 @@
+
 #pragma config(Sensor, in1,    ,               sensorAnalog)
 #pragma config(Sensor, dgtl1,  baseencoder,    sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  armencoder,     sensorQuadEncoder)
@@ -58,33 +59,31 @@ while(1==1)
 {
 	if(vexRT[Btn6U]==1)
 	{
-		Motor(claw)=63;
+		Motor(claw)=-63;
 	}
 	else if(vexRT[Btn6D]==1)
 	{
-		motor(claw)=-63;
+		motor(claw)=63;
 	}
 	else
 	{
-		motor(claw)=3; //check to make sure motor does burn up from stall
+		motor(claw)=0; //check to make sure motor does burn up from stall
 	}
 
- // set initial position as the value of the pot
- 	pidRequestedValue = SensorValue[ baseencoder ];
-// start the PID task
-    	StartTask( pidController );
+ motor[base] = vexRT[Ch1]/4;
+ 
+if(vexRT[Btn5U] == 1)
+{
+	motor[arm] = -100;
+}
+else if(vexRT[Btn5D] == 1)
+{
+	motor[arm] = 100;
+}
+else
+{
+	motor[arm]=0;
+}
 
-    // use joystick to modify the requested position
-    while( true )
-        {
-        // presets - assume joystick is centered
-        if( vexRT[ Btn7U ] == 1 )
-            pidRequestedValue = 35;
-        else
-        if( vexRT[ Btn7R ] == 1 )
-            pidRequestedValue = 130;
-	else
-	if( vexRT[Btn7L] == 1)
-		pidRequestedValue = -50
 }
 }
