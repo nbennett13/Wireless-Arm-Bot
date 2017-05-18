@@ -1,0 +1,10 @@
+void int
+{
+motor(base)=63;
+wait1msec(1000);
+motor(base)=0;
+wait1msec(1000);
+
+
+
+}
