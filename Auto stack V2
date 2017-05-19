@@ -1,0 +1,51 @@
+void init arm_up(speed) //speed should be positive
+ {
+    if(SenesorValue(UPBTN)==1)
+  {
+    motor(arm)=0;
+  }
+    else
+  {
+  motor(arm)=speed);
+  }
+}
+
+void init arm_down(speed) //speed should be negative
+ {
+    if(SenesorValue(DOWNBTN)==1)
+  {
+    motor(arm)=0;
+  }
+    else
+  {
+  motor(arm)=speed);
+  }
+}
+
+void init claw_open(speed, time)//speed should be positive
+{
+  motor(claw)=speed;
+  wait1msec(time);
+  motor(claw)=0;
+}
+
+void init claw_close(speed, time)//speed should be negative
+{
+ motor(claw)=speed;
+  wait1msec(time);
+  motor(claw)=0;
+}
+
+void init base_left(speed, time);//speed should be a 1/4 of 127, and speed should be positive
+{
+  motor(base)=speed;
+  wait1msec(time);
+  motor(base)=0;
+}
+
+void init base_right(speed, time);//speed should be a 1/4 of 127, and speed should be negative
+{
+  motor(base)=speed;
+  wait1msec(time);
+  motor(base)=0;
+}
