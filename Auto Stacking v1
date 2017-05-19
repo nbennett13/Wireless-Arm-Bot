@@ -1,0 +1,73 @@
+void init auto(time, speed)
+{
+////brings arm up when program starts, and opens the claw
+motor(arm)=speed; 
+wait1msec(time);
+motor(arm)=0;
+motor(claw)=speed;
+wait1msec(time*2)//if time value is not long enough multiply it by a number to make it longer or divide if too long
+motor(claw)=0;
+
+
+////brings the arm down and closes the claw
+motor(arm)=-speed;
+wait1msec(time);
+motor(arm)=0;
+wait1msec(time);
+motor(claw)=-speed;
+wait1msec(time);
+motor(claw)=0;
+wiat1msec(time);
+
+
+////brings the arm up
+motor(arm)=(speed);
+wait1msec(time);
+motor(arm)=0;
+wait1msec(time/2);
+
+
+////rotates the arm to the drop off position
+motor(base)=speed;
+wait1msec(time);
+motor(base)=0;
+wait1msec(time);
+
+
+////brings the arm down
+motor(arm)=-speed;
+wait1msec(time);
+motor(arm)=0;
+wait1msec(time);
+
+
+////opens claw
+motor(claw)=speed;
+wait1msec(time);
+
+
+////brings the arm up
+motor(arm)=speed;
+wait1msec(time);
+motor(arm)=0;
+wait1msec(time/2);
+
+
+////rotates the base back to the pick up pos
+motor(base)=speed;
+wait1msec(time);
+motor(base)=0;
+wait1msec(time);
+
+
+////brings the arm down and then the program repeats
+motor(arm)=-speed;
+wait1msec(time);
+motor(arm)=0;
+wait1msec(time/2);
+}
+
+
+
+
+  
